@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Angels Night | City of Detroit</title>
+  <meta name="description" content="Live tracker of volunteers for angels night">
+  <meta name="author" content="Edgar Montes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+  <!--build:css css/styles.min.css-->
+  <link rel="shortcut icon" type="image/png" href="img/favicon.ico"/>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.css" type="text/css" />
+  <link href="css/styles.css" rel="stylesheet" />
+  <!--endbuild-->
+</head>
+<body>
+  <!-- <section id="initial-loader-overlay" class="active">
+    <article>
+      <div>
+        <div class="loader">
+          <div class="loader__bar"></div>
+          <div class="loader__bar"></div>
+          <div class="loader__bar"></div>
+          <div class="loader__bar"></div>
+          <div class="loader__bar"></div>
+          <div class="loader__ball"></div>
+        </div>
+        <p>LOADING</p>
+      </div>
+    </article>
+  </section> -->
+  <section id="alert-overlay" class="">
+    <article>
+      <span class="close">x</span>
+      <div></div>
+    </article>
+  </section>
+  <section id="drill-down-overlay" class="">
+    <article>
+      <span class="close">x</span>
+      <div></div>
+    </article>
+  </section>
+  <header>
+    <section id="logo">
+      <article>
+        <img src="img/logo-220x220.jpg" alt="City of Detroit">
+      </article>
+    </section>
+    <section class="filter">
+      <article>
+        <h1>ANGELS NIGHT VOLUNTEER TRACKER</h1>
+      </article>
+    </section>
+  </header>
+  <main>
+    <section class="data-panel">
+      <!-- <section class="top-numbers">
+        <article>
+          <div>
+            INSPECTED
+            <br><span id="surveyed-num">0</span>
+          </div>
+        </article>
+        <article>
+          <div>
+            NOT INSPECTED
+            <br><span id="not-surveyed-num">0</span>
+          </div>
+        </article>
+      </section> -->
+      <section class="submit-form">
+        <article class="">
+          <label for="num-of-volunteers">
+            Number of Volunteers:
+            <input type="number" id="num-of-volunteers" name="num-of-volunteers" value="" placeholder="Enter number of volunteers">
+          </label>
+          <label for="scout-car">
+            Scout Car Area:
+            <input id="scout-car" type="text" list="scout-car-list" name="scout-car" placeholder="Select scout car area" value="">
+            <datalist id="scout-car-list">
+            </datalist>
+          </label>
+          <label for="">Hours:</label>
+          <section id="hours-selection">
+            <p>
+              <input type="radio" id="0-2" name="hours-group" checked>
+              <label for="0-2">12:00 AM - 2:00 AM</label>
+            </p>
+            <p>
+              <input type="radio" id="2-4" name="hours-group">
+              <label for="2-4">2:00 AM - 4:00 AM</label>
+            </p>
+            <p>
+              <input type="radio" id="4-6" name="hours-group">
+              <label for="4-6">4:00 AM - 6:00 AM</label>
+            </p>
+            <p>
+              <input type="radio" id="6-8" name="hours-group">
+              <label for="6-8">6:00 AM - 8:00 AM</label>
+            </p>
+            <p>
+              <input type="radio" id="8-10" name="hours-group">
+              <label for="8-10">8:00 AM - 10:00 AM</label>
+            </p>
+            <p>
+              <input type="radio" id="10-12" name="hours-group">
+              <label for="10-12">10:00 AM - 12:00 PM</label>
+            </p>
+            <p>
+              <input type="radio" id="12-14" name="hours-group">
+              <label for="12-14">12:00 PM - 2:00 PM</label>
+            </p>
+            <p>
+              <input type="radio" id="14-16" name="hours-group">
+              <label for="14-16">2:00 PM - 4:00 PM</label>
+            </p>
+            <p>
+              <input type="radio" id="16-18" name="hours-group">
+              <label for="16-18">4:00 PM - 6:00 PM</label>
+            </p>
+            <p>
+              <input type="radio" id="18-20" name="hours-group">
+              <label for="18-20">6:00 PM - 8:00 PM</label>
+            </p>
+            <p>
+              <input type="radio" id="20-22" name="hours-group">
+              <label for="20-22">8:00 PM - 10:00 PM</label>
+            </p>
+            <p>
+              <input type="radio" id="22-24" name="hours-group">
+              <label for="22-24">10:00 PM - 12:00 AM</label>
+            </p>
+          </section>
+          <button id="volunteer-submit-btn" type="button" name="button">SUBMIT</button>
+      </section>
+    </section>
+    <section class="map-panel">
+      <article id="map"></article>
+    </section>
+  </main>
+  <script src="js/app.main.js"></script>
+</body>
+</html>
