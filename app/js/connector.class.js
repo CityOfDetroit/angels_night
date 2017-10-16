@@ -13,7 +13,7 @@ export default class Connector {
     xmlHttp.open("GET", URL, true); // true for asynchronous
     xmlHttp.send(null);
   }
-  static postData(URL, data, success, parseType = null){
+  static postData(URL, data, success, parseType = true){
     // console.log(URL);
     let params = null;
     if(parseType){
@@ -28,7 +28,7 @@ export default class Connector {
     xmlHttp.open('POST', URL);
     xmlHttp.onload  = function() {
       if (xmlHttp.readyState>3 && xmlHttp.status==200) {
-        // console.log('xmlHttp success');
+        console.log('xmlHttp success');
         success(xmlHttp.response);
       }else{
         console.log('xmlHttp error');
