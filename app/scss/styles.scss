@@ -388,11 +388,18 @@ main {
 	transition: transform $base-duration ease;
 	z-index: 0;
 
-	.data-panel{
+	.data-panel.active{
 		display: block;
-		width: 50vw;
+		width: 35em;
 		padding: 0 1em;
+    transition: all .2s ease-in-out;
 	}
+
+  .data-panel{
+    width: 0;
+		padding: 0;
+    transition: all .2s ease-in-out;
+  }
 
 	.top-numbers{
 		display: flex;

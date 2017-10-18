@@ -27,7 +27,7 @@ export default class Controller {
   }
   initialLoad(){
     Connector.getData('https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Scout_Car_NPO/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=area&returnHiddenFields=false&returnGeometry=false&returnCentroid=false&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=4326&datumTransformation=&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=json&token=vLFEuryLFWPd69GBoUQQVcWXhKJXNb3iMqCBvpx6I-QNoY1cR1jPM12SBIpWOx4M2wl0RdYqm_V_qfwnWM7G7dWegoCz1APOufWgBfnkeR7rHXPn2Q8asb2QJyrRsdRvRlYdofTpi2iUIKIeep-t3vGN9mloXNirXxLSShizEb8Nwca1Cuhm7IkCTN7hVdiDxdvY0-F_IPkqZf_BxLUUyAHqA6vVwRnOZxCb3WaG9wvXyPCEFRIPBLv7fupJ1tVz', function(response){
-      console.log(JSON.parse(response));
+      // console.log(JSON.parse(response));
       let tempHTML = "";
       JSON.parse(response).features.forEach(function(scout){
         tempHTML += '<option value="' + scout.attributes.area + '"></option>';
@@ -52,6 +52,7 @@ export default class Controller {
         document.getElementById('alert-overlay').className = 'active';
         break;
       default:
+        document.getElementById('initial-loader-overlay').className = 'active';
         console.log("ready to send");
         let data = {
           // volunteer_total: volunteers,
@@ -67,7 +68,7 @@ export default class Controller {
                   "attributes": {
                     "volunteer_total": volunteers,
                     "assign_sca": area,
-                    "time_slot": hours
+                    "date": hours
                   },
                   "geometry": {
                     "x": 0,
@@ -81,8 +82,9 @@ export default class Controller {
             }
           ]
         };
-        Connector.postData("https://cors-anywhere.herokuapp.com/"+"https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/service_867c950a70be4bb7b7e4772c0ecde182/FeatureServer/0/applyEdits?&token=V-cWuG5bZD35VJql02geFhxmNG5hP0nezfSTADxXIpLMaJVxHXL5h-MrC34mqg9Zmaw-4O0BjlhzsoafV98pCBFuqcsP7B9G7smL0gFPQcuKIPEGAzNMkXK-0esq05W-INTOnQbfxdXrCO1T30iVTUgLzE0Jbr3rpZ5-TU9sYSRDpYpEVsE4ODIuCV1cg7ngScQ-yz6ZWvtz1n47TwKFqwckdNlFmqUD1qWS0jE1Vns.&username=SlusarskiD_detroitmi", data, function(response){
+        Connector.postData("https://cors-anywhere.herokuapp.com/"+"https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/service_60e59d8c446e4c71923abd4953010fb1/FeatureServer/0/applyEdits?XpCJyZ05Q3QThSg-uTc8-PlChML5KVCZbKg3ytLH-ZthahQThZwyQIPlsysxPhGC8Z29K6hjzm1lJ0CDu0XKTLrRLKJUzfmJQuOgjatZBLBBxK4bzc-27y6wmn595T_p2NdCds6Rp5d1tLPVX0Gryk5Fj8bYMWPMZKdlRc3_7dFdIVaeDVf6fqPdVLnU6KKODdG7X6TzkA9YwGH8UDaUnp75FI6bQtdjFTpTF358_uw.&username=SlusarskiD_detroitmi", data, function(response){
           if(response){
+            document.getElementById('initial-loader-overlay').className = '';
             console.log('item submitted');
             document.querySelector('#alert-overlay div').innerHTML = "Your form has been submitted.";
             document.getElementById('alert-overlay').className = 'active';
@@ -90,8 +92,16 @@ export default class Controller {
         });
     }
   }
-  closeAlert(ev){
+  closeAlert(ev,controller){
+    console.log(ev);
     (ev.target.parentNode.parentNode.id === 'alert-overlay') ? document.getElementById('alert-overlay').className = '': document.getElementById('drill-down-overlay').className = '';
+    if(ev.target.parentNode.childNodes[3].innerText === "Your form has been submitted."){
+      document.querySelector('.data-panel').className = "data-panel";
+      document.getElementById('num-of-volunteers').value = '';
+      setTimeout(function () {
+        controller.map.map.resize();
+      },500);
+    }
   }
   loadDrillDown(ev, controller){
     // console.log(ev);

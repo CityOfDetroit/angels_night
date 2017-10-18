@@ -18,7 +18,7 @@
   content: '';
   position: absolute;
   left: 0;
-  top: 0;
+  top: .35em;
   width: 18px;
   height: 18px;
   border: 1px solid #ddd;
@@ -32,7 +32,7 @@
   height: 12px;
   background: #004544;
   position: absolute;
-  top: .2em;
+  top: .55em;
   left: .2em;
   border-radius: 100%;
   -webkit-transition: all 0.2s ease;
@@ -503,10 +503,15 @@ main {
 	 *       See this article for more info and a potential fix:
 	 *       https://css-tricks.com/webkit-sibling-bug/
 	 */ }
-  main .data-panel {
+  main .data-panel.active {
     display: block;
-    width: 50vw;
-    padding: 0 1em; }
+    width: 35em;
+    padding: 0 1em;
+    transition: all .2s ease-in-out; }
+  main .data-panel {
+    width: 0;
+    padding: 0;
+    transition: all .2s ease-in-out; }
   main .top-numbers {
     display: flex;
     margin-top: 1em;

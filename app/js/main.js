@@ -11,7 +11,7 @@ import Connector from './connector.class.js';
       satellite: 'cj774gftq3bwr2so2y6nqzvz4'
     },
     center: [-83.10, 42.36],
-    zoom: 10.75,
+    zoom: 11,
     boundaries: {
       sw: [-83.3437,42.2102],
       ne: [-82.8754,42.5197]
@@ -86,26 +86,6 @@ import Connector from './connector.class.js';
         this.setFilter("scout-cars-hover", ["==", "area", features[0].properties.area]);
       }else{
         this.setFilter("scout-cars-hover", ["==", "area", ""]);
-        if (this.getLayer("districts-fill")) {
-          features = this.queryRenderedFeatures(e.point, {
-            layers: ["districts-fill"]
-          });
-          if (features.length) {
-            this.setFilter("districts-hover", ["==", "company_di", features[0].properties.company_di]);
-          }else{
-            this.setFilter("districts-hover", ["==", "company_di", ""]);
-            if (this.getLayer("not-inspected-hydrants")) {
-              features = this.queryRenderedFeatures(e.point, {
-                layers: ["not-inspected-hydrants"]
-              });
-              if (!features.length) {
-                features = this.queryRenderedFeatures(e.point, {
-                  layers: ["inspected-hydrants"]
-                });
-              }
-            }
-          }
-        }
       }
       this.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
     } catch (e) {
@@ -119,37 +99,13 @@ import Connector from './connector.class.js';
       });
       if (features.length) {
         console.log(features);
-        controller.filterData(features, controller);
+        document.getElementById('scout-car').value = features[0].properties.area;
+        document.querySelector('.data-panel').className = "data-panel active";
+        setTimeout(function () {
+          controller.map.map.resize();
+        },500);
       }else{
-        if (this.getLayer("districts-fill")) {
-          features = this.queryRenderedFeatures(e.point, {
-            layers: ["districts-fill"]
-          });
-          if (features.length) {
-            console.log(features);
-            controller.filterData(features, controller);
-          }else{
-            if (this.getLayer("not-inspected-hydrants")) {
-              features = this.queryRenderedFeatures(e.point, {
-                layers: ["not-inspected-hydrants"]
-              });
-              if (features.length) {
-                console.log(features);
-                controller.filterData(features, controller);
-              }else{
-                features = this.queryRenderedFeatures(e.point, {
-                  layers: ["inspected-hydrants"]
-                });
-                if (features.length) {
-                  console.log(features);
-                  controller.filterData(features, controller);
-                }else{
-                  console.log('no feature');
-                }
-              }
-            }
-          }
-        }
+        console.log('no feature');
       }
     } catch (e) {
       console.log("Error: " + e);
@@ -164,7 +120,7 @@ import Connector from './connector.class.js';
   let closeAlertBtns = document.querySelectorAll('.close');
   closeAlertBtns.forEach(function(btn){
     btn.addEventListener('click', function(ev){
-        controller.closeAlert(ev)
+        controller.closeAlert(ev,controller)
     });
   });
 })(window);
