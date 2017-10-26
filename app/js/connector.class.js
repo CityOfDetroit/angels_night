@@ -27,10 +27,11 @@ export default class Connector {
     let xmlHttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
     xmlHttp.open('POST', URL);
     xmlHttp.onload  = function() {
-      if (xmlHttp.readyState>3 && xmlHttp.status==200) {
+      if (xmlHttp.readyState>3 && (xmlHttp.status>=200 && xmlHttp.status < 300)) {
         console.log('xmlHttp success');
         success(xmlHttp.response);
       }else{
+        fail(xmlHttp.response);
         console.log('xmlHttp error');
         console.log('xmlHttp status: ' + xmlHttp.status);
       }

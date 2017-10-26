@@ -2,79 +2,7 @@
 import Controller from './controller.class.js';
 import Connector from './connector.class.js';
 (function(){
-  let controller = new Controller({
-    styleURL: 'mapbox://styles/mapbox',
-    mapContainer: 'map',
-    geocoder: false,
-    baseLayers: {
-      street: 'streets-v10',
-      satellite: 'cj774gftq3bwr2so2y6nqzvz4'
-    },
-    center: [-83.10, 42.36],
-    zoom: 11,
-    boundaries: {
-      sw: [-83.3437,42.2102],
-      ne: [-82.8754,42.5197]
-    },
-    sources: [
-      {
-        id: "scout-cars",
-        type: "geojson",
-        data: 'https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/Scout_Car_NPO/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=4326&datumTransformation=&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=geojson&token='
-      }
-    ],
-    layers: [
-      {
-        "id": "scout-cars-fill",
-        "type": "fill",
-        "source": "scout-cars",
-        "maxzoom": 12.5,
-        "layout": {},
-        "paint": {
-          "fill-color": '#9FD5B3',
-          "fill-opacity": .5
-        }
-      },
-      {
-        "id": "scout-cars-borders",
-        "type": "line",
-        "source": "scout-cars",
-        "maxzoom": 12.5,
-        "layout": {},
-        "paint": {
-          "line-color": "#004544",
-          "line-width": 3
-        }
-      },
-      {
-        "id": "scout-cars-hover",
-        "type": "fill",
-        "source": "scout-cars",
-        "maxzoom": 12.5,
-        "layout": {},
-        "paint": {
-          "fill-color": '#23A696',
-          "fill-opacity": .5
-        },
-        "filter": ["==", "area", ""]
-      },
-      {
-        'id': 'scout-cars-labels',
-        'type': 'symbol',
-        'source': 'scout-cars',
-        "maxzoom": 12.5,
-        'layout': {
-          "text-font": ["Mark SC Offc Pro Bold"],
-          "text-field": "{area}",
-          "symbol-placement": "point",
-          "text-size": 22
-        },
-        'paint': {
-          'text-color': '#004544'
-        }
-      }
-    ]
-  });
+  let controller = new Controller();
   controller.map.map.on("mousemove", function(e, parent = this) {
     // console.log(this);
     try {
@@ -114,13 +42,16 @@ import Connector from './connector.class.js';
   document.getElementById('volunteer-submit-btn').addEventListener('click', function(e){
     controller.submitVolunteers(controller);
   });
-  // document.getElementById('query').addEventListener('click', function(e){
-  //   controller.filterData(e, controller);
-  // });
   let closeAlertBtns = document.querySelectorAll('.close');
   closeAlertBtns.forEach(function(btn){
     btn.addEventListener('click', function(ev){
         controller.closeAlert(ev,controller)
+    });
+  });
+  let startingBtns = document.querySelectorAll('#user-type-section button');
+  startingBtns.forEach(function(btn){
+    btn.addEventListener('click', function(ev){
+      controller.initialForm(ev.target.attributes[2].nodeValue, controller);
     });
   });
 })(window);

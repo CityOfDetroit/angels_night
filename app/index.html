@@ -14,6 +14,31 @@
   <!--endbuild-->
 </head>
 <body>
+  <section id="user-type-section" class="active">
+    <article class="user-type-container">
+      <div class="">
+        <article class="user-type">
+          <h2>Welcome to the Angels Night Tracker</h2>
+          <p>Sign up as a volunteer or track the current dispatched volunteers.</p>
+          <article class="user-type-btns">
+            <button type="button" name="button" data-btn-type="v-sign-up">VOLUTEER SIGN UP</button>
+            <span>OR</span>
+            <button type="button" name="button" data-btn-type="v-tracker">TRACK VOLUNTEERS</button>
+          </article>
+        </article>
+        <article class="login-form">
+          <h2>LOGIN</h2>
+          <label for="username">USERNAME:
+            <input id="username" type="text" name="user" value="" placeholder="Enter usernamer">
+          </label>
+          <label for="username">PASSWORD:
+            <input id="password" type="password" name="password" value="" placeholder="Enter password">
+          </label>
+          <button type="button" name="button" data-btn-type="v-login">SEND</button>
+        </article>
+      </div>
+    </article>
+  </section>
   <section id="initial-loader-overlay" class="">
     <article>
       <div>
@@ -53,7 +78,7 @@
       </article>
     </section>
   </header>
-  <main>
+  <main class="hidden">
     <section class="data-panel">
       <section class="submit-form">
         <article class="">
@@ -70,12 +95,12 @@
           <label for="">Date:</label>
           <section id="hours-selection">
             <p>
-              <input type="radio" id="10-30" name="hours-group" checked>
-              <label for="10-30">Oct 30<sup>th</sup>, 2017</label>
+              <input type="radio" id="10_30" name="hours-group" checked>
+              <label for="10_30">Oct 30<sup>th</sup>, 2017</label>
             </p>
             <p>
-              <input type="radio" id="10-31" name="hours-group">
-              <label for="10-31">Oct 31<sup>th</sup>, 2017</label>
+              <input type="radio" id="10_31" name="hours-group">
+              <label for="10_31">Oct 31<sup>th</sup>, 2017</label>
             </p>
           </section>
           <button id="volunteer-submit-btn" type="button" name="button">SUBMIT</button>

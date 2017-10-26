@@ -5,11 +5,17 @@ $base-duration: 500ms;
 $cubic: cubic-bezier(.64,.09,.08,1);
 // Colors
 $color-1: #004544;
-$color-2: #23a696;
-$color-3: #9fd5b3;
-$color-4: #fff;
+$color-2: #9fd5b3;
+$color-3: #E48F22;
+$color-4: #CF3234;
 $color-5: #444;
-$color-6: #FF625B;
+$white: #fff;
+// $color-1: #004544;
+// $color-2: #23a696;
+// $color-3: #9fd5b3;
+// $color-4: #fff;
+// $color-5: #444;
+// $color-6: #FF625B;
 
 // Breakpoints
 $sm: new-breakpoint(min-width 320px);
@@ -33,7 +39,7 @@ $lg: new-breakpoint(min-width 1024px);
 	box-sizing: border-box;
 	outline: none;
 }
-body { margin:0; padding:0; font-family: 'Montserrat', sans-serif; font-weight: lighter;}
+body { margin:0; padding:0; font-family: 'Montserrat', sans-serif; font-weight: lighter; overflow: hidden; background-color: lighten( $color-5, 65% )}
 header{width: 100%; display: flex;}
 main {position: relative; width: 100%;}
 h1,h2,h3,h4,h5{font-weight: bold}
@@ -47,13 +53,84 @@ img{width: 100%;}
 		transition: all .2s ease-in-out;
 	}
 }
+#user-type-section.hidden{
+  transition: all 5s ease-in-out;
+  top: 200vh;
+
+  .user-type-container{
+    display: none;
+  }
+}
+#user-type-section.active{
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  width: 100vw;
+  transition: all 5s ease-in-out;
+
+  .user-type-container{
+    background-color: $color-3;
+    margin: auto;
+    box-shadow: -2px 2px 10px 1px rgba($color-1, 0.5);
+    display: flex;
+    width: 35em;
+    min-height: 75vh;
+    padding: 1em;
+    overflow: hidden;;
+
+    div{
+      width: 70em;
+      margin: auto;
+      display: flex;
+
+      article{
+        width: 33em;
+        position: relative;
+        padding: 1em;
+        transition: all $base-duration $cubic;
+
+        h2{
+          text-align: center;
+          text-transform: uppercase;
+        }
+      }
+
+      article.move-left{
+        left: -33em;
+        transition: all $base-duration $cubic;
+      }
+    }
+
+    .login-form{
+      input{
+        border: none;
+        padding: 1em;
+        display: block;
+        width: 100%;
+        margin-bottom: 1em;
+      }
+      button{
+        width: 100%;
+      }
+    }
+
+    .user-type-btns{
+      display: flex;
+      justify-content: center;
+
+      span{
+        padding: 1.5em;
+      }
+    }
+  }
+}
 #initial-loader-overlay.active{
   position: absolute;
 	z-index: 5;
 	height: 100vh;
 	width: 100vw;
 	padding: 1em;
-	background-color: rgba($color-4, .7);
+	background-color: rgba($white, .7);
 	display: flex;
 
 	article{
@@ -78,14 +155,14 @@ img{width: 100%;}
 	height: 100vh;
 	width: 100vw;
 	padding: 1em;
-	background-color: rgba($color-4, .5);
+	background-color: rgba($white, .5);
 	display: flex;
 
 	article{
 
 		div{
 			padding: .5em;
-			background-color: $color-4;
+			background-color: $white;
 			color: $color-5;
       max-height: 80vh;
       overflow-y: scroll;
@@ -94,7 +171,7 @@ img{width: 100%;}
         width: 100%;
         background-color: $color-1;
         padding: 0;
-        color: $color-4;
+        color: $white;
         display: flex;
 
         article{
@@ -104,7 +181,7 @@ img{width: 100%;}
         }
       }
       .hydrant-row:nth-child(even){
-        background-color: $color-3;
+        background-color: $color-2;
       }
       .hydrant-row{
         display: flex;
@@ -122,8 +199,8 @@ img{width: 100%;}
 			top: .5em;
 			right: .5em;
 			font-weight: bold;
-			color: $color-4;
-			border: 2px solid $color-4;
+			color: $white;
+			border: 2px solid $white;
 			padding: .25em .5em;
 			border-radius: 50%;
 			cursor: pointer;
@@ -145,7 +222,7 @@ img{width: 100%;}
 	height: 100vh;
 	width: 100vw;
 	padding: 1em;
-	background-color: rgba($color-4, .5);
+	background-color: rgba($white, .5);
 	display: flex;
 
 	article{
@@ -160,7 +237,7 @@ img{width: 100%;}
 		div{
 			padding: .5em;
 			background-color: $color-6;
-			color: $color-4;
+			color: $white;
 		}
 
 		.close{
@@ -168,8 +245,8 @@ img{width: 100%;}
 			top: .5em;
 			right: .5em;
 			font-weight: bold;
-			color: $color-4;
-			border: 2px solid $color-4;
+			color: $white;
+			border: 2px solid $white;
 			padding: .25em .5em;
 			border-radius: 50%;
 			cursor: pointer;
@@ -184,10 +261,10 @@ header{
 	width: 100%;
 	display: flex;
 	height: 5em;
-	box-shadow: 0px 2px 5px 0px rgba($color-3, .5);
+	box-shadow: 0px 2px 5px 0px rgba($color-2, .5);
 
 	h1{
-    color: $color-4;
+    color: $white;
 		margin: auto;
 		text-align: center;
 	}
@@ -267,6 +344,7 @@ ul {
 		h1{
 			margin: auto;
 			text-align: center;
+      color: $color-2;
 		}
 	}
 	header section{
@@ -283,19 +361,19 @@ ul {
 		margin: auto;
 	}
 	.filter label{
-		color: $color-3;
+		color: $color-2;
 		font-weight: bold;
 	}
 	.filter input[type="text"]{
 		font-family: 'Montserrat', sans-serif; font-weight: lighter;
-		color: $color-4;
-		background-color: rgba($color-3, .2);
+		color: $white;
+		background-color: rgba($color-2, .2);
 		border: none;
 		padding: .5em 1em;
 	}
 	button{
 		border: none;
-		background-color: $color-3;
+		background-color: $color-2;
 		padding: 1em;
 		font-weight: bold;
 		color: $color-1;
@@ -308,7 +386,7 @@ ul {
 		transition: all .2s ease-in-out;
 	}
 	.breadcrumbs a:hover {
-	  background: $color-3;
+	  background: $color-2;
 	}
 
 	.breadcrumbs a.active {
@@ -354,11 +432,11 @@ ul {
 	}
 
 	.breadcrumbs a:after {
-	  border-left-color: $color-4;
+	  border-left-color: $white;
 	}
 
 	.breadcrumbs a:hover:after {
-	  border-left-color: $color-3;
+	  border-left-color: $color-2;
 	}
 
 	.breadcrumbs a.active:after {
@@ -377,6 +455,11 @@ ul {
 	margin: 0 auto;
 }
 
+main.hidden{
+  top: 100vh;
+  transition: all $base-duration ease;
+}
+
 main {
 	padding-top: 5em;
 	position: relative;
@@ -385,11 +468,12 @@ main {
 	width: 100%;
 	height: 100vh;
 	transform: translateX(0px);
-	transition: transform $base-duration ease;
+	transition: all $base-duration ease;
 	z-index: 0;
 
 	.data-panel.active{
 		display: block;
+    max-width: 100%;
 		width: 35em;
 		padding: 0 1em;
     transition: all .2s ease-in-out;
@@ -411,7 +495,7 @@ main {
 			display: flex;
 			height: 20vh;
 			background-color: $color-1;
-			color: $color-3;
+			color: $color-2;
 		}
 
 		div{
@@ -441,7 +525,7 @@ main {
 
         input{
           width: 100%;
-          background-color: $color-3;
+          background-color: $color-2;
           padding: 1em;
           border: none;
           color: $color-1;
@@ -483,14 +567,14 @@ main {
 			flex: 1;
 			background-color: $color-1;
 			padding: 1em;
-			color: $color-3;
+			color: $color-2;
 			font-weight: bold;
 		}
 	}
 
 	.tabular-body{
 		.tabular-row:nth-child(even){
-			background-color:$color-3;
+			background-color:$color-2;
 		}
     .tabular-row{
       .not-inspected{
@@ -499,7 +583,7 @@ main {
       }
       .not-inspected:hover{
         background-color: $color-1;
-        color: $color-3;
+        color: $color-2;
         transition: all .2s ease-in-out;
       }
     }
@@ -526,7 +610,7 @@ main {
       }
     }
     .block:nth-child(even){
-      background-color: $color-3;
+      background-color: $color-2;
     }
   }
   .loading-box{
@@ -702,63 +786,6 @@ main {
 			width: 100%;
 			height: 100%;
 			box-shadow: -2px 2px 10px 1px rgba($color-1, 0.5);
-		}
-	}
-}
-.top-hero-container{
-	background:{
-		image: url('../img/western.jpg');
-		size: cover;
-	}
-}
-.top-hero{
-	width: 100%;
-	height: 10em;
-	display: flex;
-	background-color: $color-1;
-
-	h1{
-		margin: auto;
-		text-align: center;
-		color: $color-4;
-	}
-}
-.government-status{
-	width: 100%;
-	padding: 0 1em;
-
-	h2{
-		text-align: center;
-	}
-
-	.service{
-		display: flex;
-		width: 100%;
-		padding: 0 .5em;
-
-		.icon{
-			width: 6em;
-			padding: 1em;
-		}
-
-		.description{
-			flex: 1;
-		}
-	}
-}
-.voting-info{
-	background-color: $color-1;
-	padding: 1em;
-	h3{
-		margin: 0 0 1em 0;
-		text-align: center;
-	}
-	#geocoder{
-		padding: 0 2em;
-
-		.mapboxgl-ctrl-geocoder{
-			width: 100%;
-			border-radius: 0;
 		}
 	}
 }
