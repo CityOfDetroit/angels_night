@@ -4,6 +4,10 @@ import JSUtilities from './utilities.class.js';
 import Connector from './connector.class.js';
 import Authenticator from './authentication.class.js';
 import mapboxgl from 'mapbox-gl';
+const ArcGIS = require('arcgis');
+const serverGIS = ArcGIS({
+  domain: 'https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/service_e85611f4185545fab4a50ca81ca14ebf/FeatureServer/0'
+});
 const turf = require('@turf/simplify');
 const arcGIS = require('terraformer-arcgis-parser');
 export default class Controller {
@@ -153,57 +157,36 @@ export default class Controller {
       default:
         document.getElementById('initial-loader-overlay').className = 'active';
         console.log("ready to send");
-        let dataNew = [
-            {
-                "id" : 0,
-                "adds" : [
-                    {
-                        "geometry" : {
-            		            "x": -83.025396,
-            		            "y": 42.3488239,
-                            "spatialReference": {
-                              "wkid": 4326
-                            }
-                        },
-                        "attributes" : {
-                          "volunteers": 3,
-                          "assign_sca": 201,
-                          "date": "10_30"
-                        }
-                    }
-                ]
+        let data = [
+          {
+            "geometry": {"x": 0, "y": 0},
+            "attributes": {
+               "volunteers": volunteers,
+               "date": hours,
+               "sca": area
             }
-        ];
-        let data = {"edits":{"id":0,"adds":[{"attributes":{"volunteers":"3","date":1509336000000,"sca":"102"},"geometry":{"x":0,"y":0,"spatialReference":{"wkid":4326}}}]}};
-        // console.log(data);
-        Connector.postData("https://cors-anywhere.herokuapp.com/"+"https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/service_e85611f4185545fab4a50ca81ca14ebf/FeatureServer/0/applyEdits?useGlobalIds=false&f=json", data, function(response){
-          console.log(response);
-          if(response){
-            document.getElementById('initial-loader-overlay').className = '';
-            console.log('item submitted');
-            document.querySelector('#alert-overlay div').innerHTML = "Your form has been submitted.";
-            document.getElementById('alert-overlay').className = 'active';
           }
+        ];
+        console.log('https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/service_e85611f4185545fab4a50ca81ca14ebf/FeatureServer/0/addFeatures?features='+ encodeURIComponent(JSON.stringify(data)) +'&f=json');
+        const url = 'https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/service_e85611f4185545fab4a50ca81ca14ebf/FeatureServer/0/addFeatures?features='+ encodeURIComponent(JSON.stringify(data)) +'&f=json';
+        // Create our request constructor with all the parameters we need
+        var request = new Request(url, {
+            method: 'POST',
+            body: '',
+            headers: new Headers()
         });
-        // const url = 'https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/service_e85611f4185545fab4a50ca81ca14ebf/FeatureServer/0/applyEdits';
-        // // Create our request constructor with all the parameters we need
-        // var request = new Request(url, {
-        //     method: 'POST',
-        //     body: JSON.stringify(data),
-        //     headers: new Headers()
-        // });
-        //
-        // fetch(request)
-        // .then((resp) => {
-        //   console.log(resp);
-        //   console.log(resp.status);
-        //   if(resp.status === 200){
-        //      document.getElementById('initial-loader-overlay').className = '';
-        //      console.log('item submitted');
-        //      document.querySelector('#alert-overlay div').innerHTML = "Your form has been submitted.";
-        //      document.getElementById('alert-overlay').className = 'active';
-        //    }
-        // });
+
+        fetch(request)
+        .then((resp) => {
+          console.log(resp);
+          console.log(resp.status);
+          if(resp.status === 200){
+             document.getElementById('initial-loader-overlay').className = '';
+             console.log('item submitted');
+             document.querySelector('#alert-overlay div').innerHTML = "Your form has been submitted.";
+             document.getElementById('alert-overlay').className = 'active';
+           }
+        });
     }
   }
   closeAlert(ev,controller){
