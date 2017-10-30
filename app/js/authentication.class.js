@@ -17,7 +17,7 @@ export default class Authenticator {
     .then((resp) => resp.json())
     .then(function(data){
       // console.log(data);
-      if(data.token === 'a2cba2833f5e9c0b99197279e07d1ef0c67e0dd4'){
+      if(data.token){
         controller.authenticator.successLogin(data, controller);
         controller.initialForm('authenticated-user',controller);
       }else{

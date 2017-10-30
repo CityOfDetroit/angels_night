@@ -67,4 +67,8 @@ import mapboxgl from 'mapbox-gl';
       controller.initialForm(ev.target.attributes[2].nodeValue, controller);
     });
   });
+  let reloadPage = function reloadPage(){
+    window.location.reload(true);
+  };
+  document.getElementById('logo').addEventListener('click', reloadPage);
 })(window);

@@ -467,6 +467,7 @@ ul {
   header section {
     display: block; }
   #logo {
+    cursor: pointer;
     width: 5em; }
   .filter {
     flex: 1;
