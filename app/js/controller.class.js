@@ -4,10 +4,6 @@ import JSUtilities from './utilities.class.js';
 import Connector from './connector.class.js';
 import Authenticator from './authentication.class.js';
 import mapboxgl from 'mapbox-gl';
-const ArcGIS = require('arcgis');
-const serverGIS = ArcGIS({
-  domain: 'https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/service_e85611f4185545fab4a50ca81ca14ebf/FeatureServer/0'
-});
 const turf = require('@turf/simplify');
 const arcGIS = require('terraformer-arcgis-parser');
 export default class Controller {
